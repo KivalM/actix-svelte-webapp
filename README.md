@@ -14,7 +14,8 @@ This repository aims to represent a simple authentication flow using Rust and Ac
 
 ### The Frontend
  - Sveltekit will be used as a frontend framework.
- - Tailwind will be used as a CSS framework, with flowbite.js for responsive components.
+ - Tailwind will be used as a CSS framework.
+ - DaisyUI will be used for additional tailwind components.
  - We will use normal fetch requests to interact with the backend.
 
 
