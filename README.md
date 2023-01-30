@@ -20,19 +20,39 @@ This repository aims to represent a simple authentication flow using Rust and Ac
 
 
 ## How to run
+### Database
+ - Install PostgreSQL
+ - Create a database named `rust-auth-example`
+ - Create a user named `example` with no password
+ - optionally update the env file with the correct database credentials in the case where you want a custom username and password
+
+ - if you have permission issues connecting to the database
+   - Grant all privileges to the user on the database (or just run `GRANT ALL PRIVILEGES ON DATABASE "rust-auth-example" TO example;`)
+
 ### Backend
  - Install Rust and Cargo
- - Install PostgreSQL
- - Install Diesel CLI
- - Run `diesel setup` to create the database
+ - Install Diesel CLI (`cargo install diesel_cli --no-default-features --features postgres`)
  - Run `diesel migration run` to run the migrations
  - Run `cargo run` to run the backend
- - The backend will be running on `localhost:8080`
+ - The backend will be running on `localhost:8000`
 
 ### Frontend
  - Install Node.js
  - Run `npm install` to install the dependencies
  - Run `npm run dev` to run the frontend
- - The frontend will be running on `localhost:3000`
+ - The frontend will be running on `localhost:5173`
 
 ## How to use
+### Frontend
+   - The frontend is a simple login and register page.
+   - The frontend will send a request to the backend to register a user.
+   - The frontend will send a request to the backend to login a user.
+   - The frontend will send a request to the backend to get the current user.
+   - The frontend will send a request to the backend to logout a user.
+
+### Backend
+   - The backend will handle the requests from the frontend.
+   - The backend will register a user.
+   - The backend will login a user.
+   - The backend will get the current user.
+   - The backend will logout a user.
