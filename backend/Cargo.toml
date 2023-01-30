@@ -11,12 +11,12 @@ dotenvy = "0.15"
 
 # actix and actix-related dependencies
 actix-web = "4.3.0"
-actix-cors = "0.6.0"
+actix-cors = "0.6.4"
 # we will use cookie session to avoid setting up a redis instance
 actix-session = { version = "0.7.2", features = ["cookie-session"] }
 
 # diesel
-diesel = { version = "2.0.2", features = ["postgres", "r2d2", "chrono", "postgres_backend"] }
+diesel = { version = "2.0.3", features = ["postgres", "r2d2", "chrono", "postgres_backend"] }
 # uuid with unix timestamp based generation
 uuid = { version = "1.2.2", features = ["serde", "v7", "v4"] }
 
@@ -24,5 +24,14 @@ uuid = { version = "1.2.2", features = ["serde", "v7", "v4"] }
 serde = { version = "1.0.130", features = ["derive"] }
 serde_json = "1.0.91"
 chrono = {version = "0.4.19", features = ["serde"] }
+
+# error handling
 thiserror = "1.0.38"
-bcrypt = "0.13.0"
+
+# hashing
+argon2 = "0.4"
+rand_core = { version = "0.6", features = ["std"] }
+
+# deserialize validation
+# actix-web-validator = "5.0.1"
+# validator = { version = "0.16", features = ["derive"] }

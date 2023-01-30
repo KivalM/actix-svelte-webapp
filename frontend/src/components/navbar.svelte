@@ -48,7 +48,7 @@
 			class="btn btn-secondary"
 			href="https://github.com/KivalM/rust-actix-auth-flow"
 			target="_blank"
-			rel="noreferrer">View the src</a
+			rel="noreferrer">View the source</a
 		>
 	</div>
 </div>

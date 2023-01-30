@@ -1,7 +1,10 @@
 use crate::error::CrateError::*;
 use crate::{db::models::User, error::Result, schema::users};
+use argon2::password_hash::SaltString;
+use argon2::{Argon2, PasswordHasher};
 use diesel::ExpressionMethods;
 use diesel::{Insertable, PgConnection, QueryDsl, RunQueryDsl};
+use rand_core::OsRng;
 use serde::Deserialize;
 
 #[derive(Deserialize)]
@@ -46,7 +49,12 @@ pub fn register_user(user: RegisterUser, conn: &mut PgConnection) -> Result<User
     }
 
     // hash the password
-    let password_hash = bcrypt::hash(&user.password, 12)?;
+    let salt = SaltString::generate(&mut OsRng);
+    let argon2 = Argon2::default();
+    let password_hash = argon2
+        .hash_password(user.password.as_bytes(), &salt)
+        .unwrap()
+        .to_string();
 
     // create a new user using the insertable struct
     // we could use traits to make this more generic

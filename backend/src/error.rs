@@ -9,9 +9,9 @@ pub enum CrateError {
     #[error("Failed to run Query.")]
     DieselError(#[from] diesel::result::Error),
 
-    // bcrypt errors
-    #[error("Bcrypt error.")]
-    BcryptError(#[from] bcrypt::BcryptError),
+    // argon2 errors
+    // #[error("Failed to hash password.")]
+    // Argon2HashError(#[from] argon2::Error),
 
     // auth flow errors
     #[error("Username or password is incorrect.")]

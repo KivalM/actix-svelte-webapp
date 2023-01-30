@@ -4,7 +4,8 @@
 
 export async function backendPost(url: string, body: object): Promise<Response> {
 
-    let backendURL = "127.0.0.1:8000";
+    let backendURL = "http://localhost:8000";
+    // let backendURL = "http://127.0.0.1:8000";
     url = backendURL + url;  // add the backend url to the path
     const response = await fetch(url, {
         method: 'POST',
@@ -12,7 +13,7 @@ export async function backendPost(url: string, body: object): Promise<Response> 
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(body),
-        credentials: "include", // allow send/recieve cookies
+        credentials: 'include', // allow send/recieve cookies
     });
 
     return response;
@@ -23,15 +24,20 @@ export async function backendPost(url: string, body: object): Promise<Response> 
 // we use json as the content type for our backend so everything is json here
 // we also send the credentials so we can use cookies
 export async function backendGet(url: string): Promise<Response> {
+    // log cookies
+    console.log(document.cookie);
 
-    let backendURL = "127.0.0.1:8000";
+    let backendURL = "http://localhost:8000";
     url = backendURL + url;  // add the backend url to the path
+
+
     const response = await fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
         },
-        credentials: "include", // allow send/recieve cookies
+        credentials: 'include', // allow send/recieve cookies
+
     });
 
     return response;
