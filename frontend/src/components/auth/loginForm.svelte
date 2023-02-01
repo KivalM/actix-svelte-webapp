@@ -16,10 +16,11 @@
 		if (response.status == 200) {
 			// redirect to login page
 			insertToastString('Login successful, redirecting', 'success');
-			window.location.href = '/';
+			window.location.href = '/profile';
 		} else {
 			// show error message
-			console.log(response);
+			let body: string = await response.text();
+			insertToastString(body, 'error');
 		}
 	}
 </script>

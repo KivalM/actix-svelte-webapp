@@ -19,7 +19,6 @@
 
 	onMount(async () => {
 		let response = await backendPost('/api/auth/user', {});
-		console.log(response);
 		if (response.status == 200) {
 			user = await response.json();
 		} else {

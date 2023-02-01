@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { backendPost } from '$lib/utils/requests';
+	import { insertToastString } from '../toasts/toast';
 
 	let email_element: HTMLInputElement;
 	let username_element: HTMLInputElement;
@@ -53,10 +54,12 @@
 
 		if (response.status == 200) {
 			// redirect to login page
-			window.location.href = '/auth/login';
+			insertToastString('Login successful, redirecting', 'success');
+			window.location.href = '/profile';
 		} else {
 			// show error message
-			console.log(response);
+			let body: string = await response.text();
+			insertToastString(body, 'error');
 		}
 	}
 </script>

@@ -5,14 +5,14 @@ use crate::{
             login::{authenticate_user, LoginUser},
             register::{register_user, RegisterUser},
         },
-        models::DisplayableUser,
+        models::User,
         DBPool,
     },
     error::Result,
 };
 use actix_session::Session;
 use actix_web::{
-    get, post,
+    post,
     web::{self, Data},
     HttpResponse, Responder, Scope,
 };
@@ -70,8 +70,8 @@ pub async fn get_user(session: Session, pool: Data<DBPool>) -> Result<impl Respo
     let conn = &mut pool.get().unwrap();
     let email = session.get::<String>("email")?;
 
-    let user: DisplayableUser = match email {
-        Some(email) => get_user_by_email(email, conn)?.into(),
+    let user: User = match email {
+        Some(email) => get_user_by_email(email, conn)?,
         None => return Ok(HttpResponse::Unauthorized().into()),
     };
 

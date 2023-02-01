@@ -8,11 +8,11 @@
 	});
 </script>
 
-<div class="toast toast-bottom toast-end">
+<div class="toast toast-top toast-center">
 	{#each localToast as toast}
 		<div class="alert alert-{toast.type}">
 			<div>
-				<span>{toast.message}</span>
+				<div>{toast.message}</div>
 			</div>
 		</div>
 	{/each}
