@@ -35,8 +35,8 @@ pub fn authenticate_user(user: LoginUser, conn: &mut PgConnection) -> Result<Use
         .is_ok();
 
     if matches {
-        return Ok(table_user);
+        Ok(table_user)
     } else {
-        return Err(InvalidCredentials);
+        Err(InvalidCredentials)
     }
 }
