@@ -27,6 +27,10 @@ pub enum CrateError {
     SessionInsertError(#[from] actix_session::SessionInsertError),
     #[error("Could not get key from session.")]
     SessionExtractError(#[from] actix_session::SessionGetError),
+
+    // web::block errors
+    #[error("Failed to run web::block.")]
+    WebBlockError(#[from] actix_web::error::BlockingError),
 }
 
 /// ResponseError trait is used to convert errors into http responses.

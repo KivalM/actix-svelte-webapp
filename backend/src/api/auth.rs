@@ -5,7 +5,6 @@ use crate::{
             login::{authenticate_user, LoginUser},
             register::{register_user, RegisterUser},
         },
-        models::User,
         DBPool,
     },
     error::Result,
@@ -34,7 +33,8 @@ pub async fn login(
     pool: Data<DBPool>,
     user: web::Json<LoginUser>,
 ) -> Result<impl Responder> {
-    let user = authenticate_user(user.into_inner(), &mut pool.get().unwrap())?;
+    let user = web::block(move || authenticate_user(user.into_inner(), &mut pool.get().unwrap()))
+        .await??;
 
     // Log the user in
     session.renew();
@@ -50,7 +50,8 @@ pub async fn register(
     pool: Data<DBPool>,
     user: web::Json<RegisterUser>,
 ) -> Result<impl Responder> {
-    let user = register_user(user.into_inner(), &mut pool.get().unwrap())?;
+    let user =
+        web::block(move || register_user(user.into_inner(), &mut pool.get().unwrap())).await??;
 
     // Log the user in
     session.insert("email", user.email)?;
@@ -67,13 +68,17 @@ pub async fn logout(session: Session) -> impl Responder {
 
 #[post("/user")]
 pub async fn get_user(session: Session, pool: Data<DBPool>) -> Result<impl Responder> {
-    let conn = &mut pool.get().unwrap();
     let email = session.get::<String>("email")?;
 
-    let user: User = match email {
-        Some(email) => get_user_by_email(email, conn)?,
-        None => return Ok(HttpResponse::Unauthorized().into()),
-    };
-
-    Ok(HttpResponse::Ok().json(user))
+    match email {
+        Some(email) => {
+            let user = web::block(move || {
+                let conn = &mut pool.get().unwrap();
+                get_user_by_email(email, conn)
+            })
+            .await??;
+            Ok(HttpResponse::Ok().json(user))
+        }
+        None => Ok(HttpResponse::Unauthorized().into()),
+    }
 }
