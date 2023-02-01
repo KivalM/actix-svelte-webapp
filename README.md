@@ -21,7 +21,7 @@ This repository aims to grow over time to include more features and more technol
 ## The Stack
 ### The Backend
  - Diesel will be used as an ORM to interact with the database.
-    - Bcrypt will be used to hash passwords.
+    - Argon2 will be used to hash passwords.
  - Actix web will be used as a web framework.
     - Actix-session will be used to manage sessions.
     - Actix-cors will be used to manage CORS.
