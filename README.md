@@ -2,6 +2,22 @@
 This repository aims to represent a simple authentication flow using Rust and Actix-web, with a PostgreSQL database and a sveltekit frontend. 
 
 
+## The Goal
+The goal of this repository is to provide a simple example of how to implement authentication in Rust & Actix. This repository will be used as a reference for future projects. This repository will also be used as a reference for future blog posts.
+
+This repository also aims to provide examples of how to use the following technologies:
+ - Diesel
+ - Actix
+ - Juniper
+ - Sveltekit
+ - Tailwind
+ - DaisyUI
+
+As well as provide examples of idiomatic Rust practices.
+
+This repository aims to grow over time to include more features and more technologies that are commonly used in Rust projects.
+
+
 ## The Stack
 ### The Backend
  - Diesel will be used as an ORM to interact with the database.
