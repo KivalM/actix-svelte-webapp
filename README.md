@@ -15,7 +15,7 @@ This repository also aims to provide examples of how to use the following techno
 
 As well as provide examples of idiomatic Rust practices.
 
-This repository aims to grow over time to include more features and more technologies that are commonly used in Rust projects.
+This repository aims to grow over time to include more features and more technologies that are commonly used in web stacks and Rust projects.
 
 
 ## The Stack
