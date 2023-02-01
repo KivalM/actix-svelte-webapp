@@ -3,7 +3,7 @@ This repository aims to represent a simple authentication flow using Rust and Ac
 
 
 ## The Goal
-The goal of this repository is to provide a simple example of how to implement authentication in Rust & Actix. This repository will be used as a reference for future projects. This repository will also be used as a reference for future blog posts.
+The goal of this repository is to provide a simple example of how to implement session-based authentication in Rust & Actix. This repository will be used as a reference for future projects. This repository will also be used as a reference for future blog posts.
 
 This repository also aims to provide examples of how to use the following technologies:
  - Diesel
