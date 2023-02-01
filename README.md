@@ -40,7 +40,7 @@ This repository aims to grow over time to include more features and more technol
  - Install PostgreSQL
  - Create a database named `rust-auth-example`
  - Create a user named `example` with no password
- - optionally update the env file with the correct database credentials in the case where you want a custom username and password
+ - optionally update the env file with the correct database credentials in the case where you want a custom username and password and database name
 
  - if you have permission issues connecting to the database
    - Grant all privileges to the user on the database (or just run `GRANT ALL PRIVILEGES ON DATABASE "rust-auth-example" TO example;`)
