@@ -48,24 +48,23 @@ This repository aims to grow over time to include more features and more technol
 ## Database
  - Install PostgreSQL
  - Create a database named `rust-auth-example`
- - Create a user named `example` with no password
- - optionally update the env file with the correct database credentials in the case where you want a custom username and password and database name
-
- - if you have permission issues connecting to the database
-   - Grant all privileges to the user on the database (or just run `GRANT ALL PRIVILEGES ON DATABASE "rust-auth-example" TO example;`)
+ - Create a superuser(to avoid permission issues) named `example` with (optionally) no password.
+ -  update the env file with the correct database credentials in the case where you want a custom username and password and database name
+ 
+ ## Frontend
+ - Install Node.js
+ - Run `npm install` to install the dependencies
+ - Run `npm build` to build the frontend
+ - The frontend will be statically hosted by the backend so they have the same domain
 
 ## Backend
  - Install Rust and Cargo
- - Install Diesel CLI (`cargo install diesel_cli --no-default-features --features postgres`)
- - Run `diesel migration run` to run the migrations
- - Run `cargo run` to run the backend
+ - Install Diesel CLI (`cargo install diesel_cli --no-default-features --features postgres`)(make sure you have the postgres-libs installed)
+ - Run `cargo run` to run the backend, the migrations will automatically apply.
  - The backend will be running on `localhost:8000`
+ - head to 'localhost:8000' to interact with the frontend
 
-## Frontend
- - Install Node.js
- - Run `npm install` to install the dependencies
- - Run `npm run dev` to run the frontend
- - The frontend will be running on `localhost:5173`
+
 
 ## How to use
 ### Frontend
