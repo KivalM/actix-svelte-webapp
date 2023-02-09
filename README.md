@@ -85,7 +85,7 @@ This repository aims to grow over time to include more features and more technol
 
 
 ## Development
-
+There are some weird issues with vite and firefox, so I recommend using chrome for development. I will try to fix this in the future.
 ### Database
  - Install PostgreSQL
  - Create a database named `rust-auth-example`
