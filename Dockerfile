@@ -76,6 +76,7 @@ ENV TZ=Etc/UTC
 ENV DATABASE_URL=postgresql://postgres:postgres@localhost:6543/postgres
 # a variable for our rust app to know that it is running in a docker container
 ENV DOCKER=true
+ENV ENV=prod
 
 # Run the Rust app
 # we will do the db configuration at runtime

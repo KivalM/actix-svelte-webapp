@@ -31,6 +31,10 @@ async fn main() -> Result<()> {
         "../frontend/build"
     };
 
+    // check the startup configuration
+    // can only be dev or prod
+    let env = std::env::var("ENV").unwrap_or_else(|_| "dev".to_string());
+
     // some startup configuration
     // 0.0.0.0 exposes the server to the local network
     // so we can expose it to host machine from docker
@@ -56,20 +60,28 @@ async fn main() -> Result<()> {
         let cors = Cors::permissive();
 
         // configure actix session
-        let session = SessionMiddleware::builder(CookieSessionStore::default(), secret_key.clone())
-            // allow cookies to be sent over http
-            .cookie_secure(false)
-            // encrypt the cookie
-            .cookie_content_security(actix_session::config::CookieContentSecurity::Private)
-            // set the session ttl
-            .session_lifecycle(
-                PersistentSession::default()
-                    .session_ttl(actix_web::cookie::time::Duration::minutes(10)),
-            )
+        let mut session =
+            SessionMiddleware::builder(CookieSessionStore::default(), secret_key.clone())
+                // allow cookies to be sent over http
+                .cookie_secure(false)
+                // encrypt the cookie
+                .cookie_content_security(actix_session::config::CookieContentSecurity::Private)
+                // set the session ttl
+                .session_lifecycle(
+                    PersistentSession::default()
+                        .session_ttl(actix_web::cookie::time::Duration::minutes(10)),
+                );
+
+        if env == "dev" {
+            // allow cookies to work over localhost
+            session = session.cookie_same_site(SameSite::Lax);
+        } else {
             // allow cookies to be sent to other domains
             // im not sure why lax doesnt work here
-            .cookie_same_site(SameSite::None)
-            .build();
+            session = session.cookie_same_site(SameSite::Strict);
+        }
+
+        let session = session.build();
 
         App::new()
             .app_data(Data::new(db_pool.clone()))

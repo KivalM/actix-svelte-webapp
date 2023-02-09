@@ -60,7 +60,8 @@ This repository aims to grow over time to include more features and more technol
 ## Backend
  - Install Rust and Cargo
  - Install Diesel CLI (`cargo install diesel_cli --no-default-features --features postgres`)(make sure you have the postgres-libs installed)
- - Run `cargo run` to run the backend, the migrations will automatically apply.
+ - Cookie same site is set to strict when running in production mode.
+ - Run `ENV=prod cargo run --release` to run the backend, the migrations will automatically apply.
  - The backend will be running on `localhost:8000`
  - head to 'localhost:8000' to interact with the frontend
 
@@ -80,3 +81,30 @@ This repository aims to grow over time to include more features and more technol
    - The backend will login a user.
    - The backend will get the current user.
    - The backend will logout a user.
+
+
+
+## Development
+
+### Database
+ - Install PostgreSQL
+ - Create a database named `rust-auth-example`
+ - Create a superuser(to avoid permission issues) named `example` with (optionally) no password.
+ -  update the env file with the correct database credentials in the case where you want a custom username and password and database name
+
+### Backend 
+ - Install Rust and Cargo
+ - Install Diesel CLI (`cargo install diesel_cli --no-default-features --features postgres`)(make sure you have the postgres-libs installed)
+ - set up the `DATABASE_URL` environment variable in the .env file to point to the database
+ - Run `diesel migration run` to run the migrations
+ - Run `cargo run` to run the backend
+ - The backend will be running on `localhost:8000`
+ - Cookie security is set to lax different when running in development mode
+
+### Frontend
+ - Install Node.js
+ - Run `npm install` to install the dependencies
+ - Run `npm run dev` to run vite and start a development server
+ - it will be running on `localhost:5173`
+ - Requests will automatically be routed to the backend on `localhost:8000` 
+ - The frontend will be statically hosted by the backend so they have the same domain
