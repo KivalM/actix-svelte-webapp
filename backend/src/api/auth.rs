@@ -1,7 +1,7 @@
 use crate::{
     db::{
         auth::{
-            get_user_by_email,
+            get_all_users, get_user_by_email,
             login::{authenticate_user, LoginUser},
             register::{register_user, RegisterUser},
         },
@@ -11,7 +11,7 @@ use crate::{
 };
 use actix_session::Session;
 use actix_web::{
-    post,
+    get, post,
     web::{self, Data},
     HttpResponse, Responder, Scope,
 };
@@ -23,6 +23,7 @@ pub fn auth_scope() -> Scope {
         .service(logout)
         .service(register)
         .service(get_user)
+        .service(get_users)
 }
 
 /// This function is used to log a user in given a username and password.
@@ -81,4 +82,15 @@ pub async fn get_user(session: Session, pool: Data<DBPool>) -> Result<impl Respo
         }
         None => Ok(HttpResponse::Unauthorized().into()),
     }
+}
+
+#[get("/users")]
+pub async fn get_users(pool: Data<DBPool>) -> Result<impl Responder> {
+    let users = web::block(move || {
+        let conn = &mut pool.get().unwrap();
+        get_all_users(conn)
+    })
+    .await??;
+
+    Ok(HttpResponse::Ok().json(users))
 }

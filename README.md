@@ -36,7 +36,16 @@ This repository aims to grow over time to include more features and more technol
 
 
 ## How to run
-### Database
+
+### Docker
+ - Install Docker
+ - Run `docker build -t rust-actix-auth-flow-example .` to build the image
+ - run `docker run -p 8000:8000 rust-actix-auth-flow-example:latest` to run the image and expose the port
+ - The backend will be running on `localhost:8000` and will statically serve the frontend on the same port
+ - head to `localhost:8000` to see the frontend and interact with the backend
+
+### Alternatively you can run the backend and frontend separately and set up the database manually
+## Database
  - Install PostgreSQL
  - Create a database named `rust-auth-example`
  - Create a user named `example` with no password
@@ -45,14 +54,14 @@ This repository aims to grow over time to include more features and more technol
  - if you have permission issues connecting to the database
    - Grant all privileges to the user on the database (or just run `GRANT ALL PRIVILEGES ON DATABASE "rust-auth-example" TO example;`)
 
-### Backend
+## Backend
  - Install Rust and Cargo
  - Install Diesel CLI (`cargo install diesel_cli --no-default-features --features postgres`)
  - Run `diesel migration run` to run the migrations
  - Run `cargo run` to run the backend
  - The backend will be running on `localhost:8000`
 
-### Frontend
+## Frontend
  - Install Node.js
  - Run `npm install` to install the dependencies
  - Run `npm run dev` to run the frontend

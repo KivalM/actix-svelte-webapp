@@ -10,6 +10,7 @@
 
 <div class="toast toast-top toast-center">
 	{#each localToast as toast}
+		<!-- colour doesnt work idky -->
 		<div class="alert alert-{toast.type}">
 			<div>
 				<div>{toast.message}</div>

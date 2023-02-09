@@ -1,8 +1,9 @@
-use crate::error::Result;
+use crate::{db::run_migrations, error::Result};
 use actix_cors::Cors;
+use actix_files::Files;
 use actix_session::{config::PersistentSession, storage::CookieSessionStore, SessionMiddleware};
 use actix_web::{
-    cookie::Key,
+    cookie::{Key, SameSite},
     middleware::{Compress, Logger},
     web::Data,
     App, HttpServer,
@@ -19,10 +20,27 @@ async fn main() -> Result<()> {
     // start the logger
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("debug"));
 
+    // check for the docker environment variable
+    let docker = std::env::var("DOCKER").is_ok();
+
+    let frontend_build_dir = if docker {
+        // if we are running in docker, we need to serve the frontend from the build
+        "./frontend/build"
+    } else {
+        // if we are not running in docker, we can serve the frontend from its source directory relative to the backend
+        "../frontend/build"
+    };
+
     // some startup configuration
+    // 0.0.0.0 exposes the server to the local network
+    // so we can expose it to host machine from docker
+    let host = "0.0.0.0";
     let port = 8000;
-    let host = "127.0.0.1";
+
     let db_pool = db::establish_connection()?;
+
+    // run the migrations
+    run_migrations(&db_pool)?;
 
     // startup logging
     info!("Starting up the server");
@@ -48,6 +66,9 @@ async fn main() -> Result<()> {
                 PersistentSession::default()
                     .session_ttl(actix_web::cookie::time::Duration::minutes(10)),
             )
+            // allow cookies to be sent to other domains
+            // im not sure why lax doesnt work here
+            .cookie_same_site(SameSite::None)
             .build();
 
         App::new()
@@ -61,6 +82,15 @@ async fn main() -> Result<()> {
             .wrap(Compress::default())
             // load the full api scope
             .service(api::api_scope())
+            // we have to put this at the end so that it doesnt override the api routes
+            .service(
+                Files::new("/", frontend_build_dir)
+                    .index_file("index.html")
+                    .default_handler(
+                        actix_files::NamedFile::open(format!("{}/index.html", frontend_build_dir))
+                            .unwrap(),
+                    ),
+            )
     })
     .bind((host, port))?
     .run()

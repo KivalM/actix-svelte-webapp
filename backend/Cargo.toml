@@ -12,12 +12,12 @@ dotenvy = "0.15"
 # actix and actix-related dependencies
 actix-web = "4.3.0"
 actix-cors = "0.6.4"
-
-# we will use cookie session to avoid setting up a redis instance
+actix-files = "0.6.2"
 actix-session = { version = "0.7.2", features = ["cookie-session"] }
 
 # diesel
 diesel = { version = "2.0.3", features = ["postgres", "r2d2", "chrono", "postgres_backend"] }
+diesel_migrations = {version = "2.0.0", features=["postgres"]}
 
 # uuid with unix timestamp based generation
 uuid = { version = "1.2.2", features = ["serde", "v7", "v4"] }
@@ -33,4 +33,5 @@ thiserror = "1.0.38"
 # hashing
 argon2 = "0.4"
 rand_core = { version = "0.6", features = ["std"] }
+
 

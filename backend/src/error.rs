@@ -1,3 +1,4 @@
+use diesel::r2d2;
 use thiserror::Error;
 
 pub type Result<T> = std::result::Result<T, CrateError>;
@@ -9,9 +10,9 @@ pub enum CrateError {
     #[error("Failed to run Query.")]
     DieselError(#[from] diesel::result::Error),
 
-    // argon2 errors
-    // #[error("Failed to hash password.")]
-    // Argon2HashError(#[from] argon2::Error),
+    // r2d2 errors
+    #[error("Failed to get connection from pool.")]
+    R2D2Error(#[from] r2d2::Error),
 
     // auth flow errors
     #[error("Username or password is incorrect.")]

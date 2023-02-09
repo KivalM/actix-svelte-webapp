@@ -22,7 +22,7 @@
 		if (response.status == 200) {
 			user = await response.json();
 		} else {
-			insertToastString('Error fetching user', 'error');
+			insertToastString('Error fetching user, You likely need to sign in', 'error');
 			return;
 		}
 	});

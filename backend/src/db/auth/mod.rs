@@ -13,3 +13,8 @@ pub fn get_user_by_email(email: String, conn: &mut PgConnection) -> Result<User>
         .first::<User>(conn)
         .map_err(|e| e.into())
 }
+
+/// This function will get all users in the database.
+pub fn get_all_users(conn: &mut PgConnection) -> Result<Vec<User>> {
+    users::table.load::<User>(conn).map_err(|e| e.into())
+}

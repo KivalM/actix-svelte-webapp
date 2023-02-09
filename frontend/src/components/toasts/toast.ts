@@ -1,10 +1,9 @@
 import { writable, type Writable } from 'svelte/store';
 
 // writable toast store
-
 export const toastStore: Writable<Toast[]> = writable([]);
 
-
+// toast interface
 export interface Toast {
     message: string;
     type: string;
@@ -12,9 +11,7 @@ export interface Toast {
     duration: number;
 }
 
-
-
-
+// insert a toast
 export function insertToast(toast: Toast) {
     toastStore.update((toasts) => {
         toasts.push(toast);
@@ -22,17 +19,15 @@ export function insertToast(toast: Toast) {
     });
 }
 
+// insert a toast with a string message and a type
 export function insertToastString(message: string, type: string,) {
-
-    console.log("inserting toast");
-
     toastStore.update((toasts) => {
 
         let toast: Toast = {
             message: message,
             type: type,
             position: "top-right",
-            duration: 10,
+            duration: 3,
         };
 
         toasts.push(toast);

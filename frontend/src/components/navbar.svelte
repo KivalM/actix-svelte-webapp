@@ -20,6 +20,7 @@
 				>
 			</label>
 			<ul class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+				<li><a href="/">Home</a></li>
 				<li><a href="/auth/register">Register</a></li>
 				<li><a href="/auth/login">Login</a></li>
 				<li><a href="/profile">Profile</a></li>
@@ -36,6 +37,7 @@
 	<!-- nav center -->
 	<div class="navbar-center hidden lg:flex">
 		<ul class="menu menu-horizontal px-1">
+			<li class="border-accent border-2 rounded-lg mx-2"><a href="/">Home</a></li>
 			<li class="border-accent border-2 rounded-lg mx-2"><a href="/auth/register">Register</a></li>
 			<li class="border-accent border-2 rounded-lg mx-2"><a href="/auth/login">Login</a></li>
 			<li class="border-accent border-2 rounded-lg mx-2"><a href="/profile">Profile</a></li>
