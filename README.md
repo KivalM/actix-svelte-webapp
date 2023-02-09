@@ -110,4 +110,3 @@ There are some weird issues with vite and firefox, so I recommend using chrome f
  - Run `npm run dev` to run vite and start a development server
  - it will be running on `localhost:5173`
  - Requests will automatically be routed to the backend on `localhost:8000` 
- - The frontend will be statically hosted by the backend so they have the same domain
