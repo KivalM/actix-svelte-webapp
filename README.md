@@ -17,7 +17,7 @@ As well as provide examples of idiomatic Rust practices.
 
 This repository aims to grow over time to include more features and more technologies that are commonly used in web stacks and Rust projects.
 
-The project consists of a actix-hosted production environment while still maintaining the Vite development server for better development experience.
+The project consists of a actix-hosted static sveltekit SPA while still maintaining the Vite development server for better development experience.
 See the 'How to run' and 'Developement' sections below
 
 
